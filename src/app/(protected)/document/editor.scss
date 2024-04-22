@@ -1,0 +1,54 @@
+.tiptap {
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border-top: 2.27px solid black;
+    border-bottom: 2.27px solid black;
+    overflow-x: auto;
+    table-layout: fixed;
+
+    th,
+    td {
+      border: 0 none;
+      padding: 0.51rem;
+      line-height: 1.1;
+      width: 100%;
+    }
+    & > tbody > tr:first-child > td,
+    & > tbody > tr:first-child > th {
+      border-top: 1.36px solid black;
+    }
+    & > tbody > tr:last-child > td,
+    & > tbody > tr:last-child > th {
+      border-bottom: 1.36px solid black;
+    }
+
+    th {
+      font-weight: 700;
+      padding: 8px 9px 5px 9px;
+      text-align: left;
+    }
+
+    tr:nth-child(even) {
+      background-color: #ebecf1 ;
+    }
+
+    .selectedCell {
+      background: rgba(200, 200, 255, 0.4);
+    }
+  }
+
+  p.is-empty::before {
+    opacity: 0.5;
+    content: attr(data-placeholder);
+    height: 0;
+    float: left;
+    pointer-events: none;
+  }
+
+  p {
+    margin: 0;
+  }
+}

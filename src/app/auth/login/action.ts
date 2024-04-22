@@ -1,5 +1,5 @@
 import { AuthResponse } from "@supabase/auth-js/src/lib/types";
-import { createClient } from "~/utils/supabase/server";
+import { createClient } from "~/lib/supabase/server";
 
 export default async function signIn({ email, password }: { email: string; password: string }) {
   "use server";
