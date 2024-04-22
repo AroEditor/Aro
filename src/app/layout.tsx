@@ -11,7 +11,7 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+const defaultUrl = process.env.VERCEL_URL ? `https://app.aroeditor.io` : "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
