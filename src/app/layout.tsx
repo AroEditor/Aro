@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { Toaster as Sonner } from "~/components/ui/sonner";
 import { Toaster } from "~/components/ui/toaster";
@@ -12,10 +13,13 @@ const manrope = Manrope({
 
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Aro Editor",
   description: "The No-code Typesetting Editor.",
+  openGraph: {
+    images: ["opengraph.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
