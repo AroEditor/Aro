@@ -10,7 +10,7 @@ export default function Appbar() {
           <Logo className={"w-24 text-primary"} />
         </div>
         <div className={"absolute left-1/2 flex -translate-x-1/2 gap-2 text-xl"}>
-          <Link href={"/dashboard"} className={"text-primary/60 hover:underline"}>
+          <Link href={"/"} className={"text-primary/60 hover:underline"}>
             All documents
           </Link>
           <p className={"text-primary/60"}>/</p>
