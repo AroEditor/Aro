@@ -17,9 +17,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Aro Editor",
   description: "The No-code Typesetting Editor.",
-  openGraph: {
-    images: ["opengraph.png"],
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
