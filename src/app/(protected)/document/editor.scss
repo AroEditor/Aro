@@ -1,33 +1,13 @@
 .tiptap {
+  @import "latex";
 
   table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    border-top: 2.27px solid black;
-    border-bottom: 2.27px solid black;
-    overflow-x: auto;
-    table-layout: fixed;
-
-    th,
-    td {
-      border: 0 none;
-      padding: 0.51rem;
-      line-height: 1.1;
-      width: 100%;
-    }
-    & > tbody > tr:first-child > td,
-    & > tbody > tr:first-child > th {
-      border-top: 1.36px solid black;
-    }
-    & > tbody > tr:last-child > td,
-    & > tbody > tr:last-child > th {
-      border-bottom: 1.36px solid black;
-    }
+    width: 100% !important;
+    table-layout: fixed !important;
+    margin: 1rem 0;
 
     th {
       font-weight: 700;
-      padding: 8px 9px 5px 9px;
       text-align: left;
     }
 
@@ -52,24 +32,25 @@
     margin: 0;
   }
 
-  h1 {
-    counter-increment: h1;
-    counter-reset: h2;
-  }
+
   h2 {
     counter-increment: h2;
     counter-reset: h3;
   }
   h3 {
     counter-increment: h3;
+    counter-reset: h4;
   }
-  h1::before {
-    content: counter(h1)'. ';
+  h4 {
+    counter-increment: h4;
   }
   h2::before {
-    content: counter(h1)'.'counter(h2)'. ';
+    content: counter(h2)'. ';
   }
   h3::before {
-    content: counter(h1)'.'counter(h2)'.'counter(h3)'. ';
+    content: counter(h2)'.'counter(h3)'. ';
+  }
+  h4::before {
+    content: counter(h2)'.'counter(h3)'. 'counter(h4)'. ';
   }
 }

@@ -16,21 +16,28 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           title: "Convert to heading",
           id: "heading",
           command: ({ editor, range }: { editor: Editor; range: Range }) => {
-            editor.chain().focus().deleteRange(range).setNode("heading", { level: 1 }).run();
+            editor.chain().focus().deleteRange(range).setNode("heading", { level: 2 }).run();
           },
         },
         {
           title: "Convert to subheading",
           id: "subheading",
           command: ({ editor, range }: { editor: Editor; range: Range }) => {
-            editor.chain().focus().deleteRange(range).setNode("heading", { level: 2 }).run();
+            editor.chain().focus().deleteRange(range).setNode("heading", { level: 3 }).run();
           },
         },
         {
           title: "Convert to subsubheading",
           id: "subsubheading",
           command: ({ editor, range }: { editor: Editor; range: Range }) => {
-            editor.chain().focus().deleteRange(range).setNode("heading", { level: 3 }).run();
+            editor.chain().focus().deleteRange(range).setNode("heading", { level: 4 }).run();
+          },
+        },
+        {
+          title: "Convert to title",
+          id: "title",
+          command: ({ editor, range }: { editor: Editor; range: Range }) => {
+            editor.chain().focus().deleteRange(range).setNode("heading", { level: 1 }).run();
           },
         },
       ],
@@ -39,17 +46,45 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Format",
       items: [
         {
-          title: "Format as bold",
+          title: "Bold text",
           id: "bold",
           command: ({ editor, range }: { editor: Editor; range: Range }) => {
             editor.chain().focus().deleteRange(range).setMark("bold").run();
           },
         },
         {
-          title: "Format as italic",
+          title: "Italic text",
           id: "italic",
           command: ({ editor, range }: { editor: Editor; range: Range }) => {
             editor.chain().focus().deleteRange(range).setMark("italic").run();
+          },
+        },
+        {
+          title: "Align center",
+          id: "center align",
+          command: ({ editor, range }: { editor: Editor; range: Range }) => {
+            editor.chain().focus().deleteRange(range).setTextAlign("center").run();
+          },
+        },
+        {
+          title: "Align left",
+          id: "left align",
+          command: ({ editor, range }: { editor: Editor; range: Range }) => {
+            editor.chain().focus().deleteRange(range).setTextAlign("left").run();
+          },
+        },
+        {
+          title: "Align right",
+          id: "right align",
+          command: ({ editor, range }: { editor: Editor; range: Range }) => {
+            editor.chain().focus().deleteRange(range).setTextAlign("right").run();
+          },
+        },
+        {
+          title: "Align justify",
+          id: "justify align",
+          command: ({ editor, range }: { editor: Editor; range: Range }) => {
+            editor.chain().focus().deleteRange(range).setTextAlign("justify").run();
           },
         },
       ],
