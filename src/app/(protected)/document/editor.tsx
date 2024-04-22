@@ -10,6 +10,7 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
+import { Skeleton } from "~/components/ui/skeleton";
 import MathInline from "~/lib/editor/inline-equations";
 import Commands from "~/lib/editor/suggestions/commands";
 import getSuggestionItems from "~/lib/editor/suggestions/items";
@@ -51,6 +52,22 @@ export default function Editor() {
     },
     content: ``,
   });
+
+  if (!editor) {
+    return (
+      <div
+        className={
+          "mx-auto h-full !max-w-full space-y-2 border-dashed bg-white p-16 !font-serif focus:outline-none xl:px-32 2xl:border-x"
+        }
+      >
+        <Skeleton className="h-[125px] w-full rounded-xl" />
+        <div className="space-y-2">
+          <Skeleton className="h-8 w-full" />
+          <Skeleton className="h-8 w-[75%]" />
+        </div>
+      </div>
+    );
+  }
 
   console.log(editor?.getJSON());
 
