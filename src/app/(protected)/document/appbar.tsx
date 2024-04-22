@@ -4,7 +4,7 @@ import { Button } from "~/components/ui/button";
 
 export default function Appbar() {
   return (
-    <div className={"w-full"}>
+    <div className={"w-full border-b"}>
       <div className={"flex h-20 w-full items-center justify-between px-6"}>
         <div>
           <Logo className={"w-24 text-primary"} />

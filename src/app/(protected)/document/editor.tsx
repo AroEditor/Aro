@@ -45,11 +45,14 @@ export default function Editor() {
     ],
     editorProps: {
       attributes: {
-        class: "h-full p-8 !font-serif mx-auto focus:outline-none !max-w-full",
+        class:
+          "h-full p-16 xl:px-32 !font-serif mx-auto focus:outline-none !max-w-full bg-white 2xl:border-x border-dashed",
       },
     },
     content: ``,
   });
+
+  console.log(editor?.getJSON());
 
   return <EditorContent editor={editor} className={"h-full"} />;
 }
