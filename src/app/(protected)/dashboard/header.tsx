@@ -1,14 +1,14 @@
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
+import { Input } from "~/components/ui/input";
+
 export default function Header() {
   return (
-    <header className={"flex items-center justify-between p-2"}>
-      <div className={"relative mx-4 flex-grow"}>
-        <input
-          type="text"
-          placeholder="Search in Aro"
-          className={
-            "font-manrope w-full rounded-lg border border-gray-300 bg-[#EFEFEF] px-[40px] py-2.5 text-lg font-medium text-[#B5B5B5] placeholder-[#B5B5B5]"
-          }
-        />
+    <header className={"sticky top-0 flex h-20 items-center justify-between gap-6 overflow-hidden border-b px-6"}>
+      <div className={"relative flex-grow"}>
+        <div className={"flex items-center"}>
+          <Input placeholder={"Search in Aro"} className={"border-0 bg-muted pl-9 text-base shadow-none"} />
+          <MagnifyingGlassIcon className={"absolute ml-2 w-5 text-muted-foreground"} />
+        </div>
       </div>
     </header>
   );

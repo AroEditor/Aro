@@ -6,7 +6,7 @@ export default function Dashboard() {
   return (
     <div className={"flex h-screen w-full"}>
       <Sidebar />
-      <main className={"flex-grow overflow-y-auto p-5"}>
+      <main className={"flex-grow overflow-y-auto bg-white"}>
         <Header />
         <ProjectGrid />
       </main>
