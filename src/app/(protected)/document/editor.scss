@@ -32,6 +32,10 @@
     margin: 0;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+
 
   h2 {
     counter-increment: h2;
@@ -53,4 +57,25 @@
   h4::before {
     content: counter(h2)'.'counter(h3)'. 'counter(h4)'. ';
   }
+
+  ol {
+    counter-reset: ol;  /* Create a LaTeX-like counter */
+    list-style-type: none;     /* Remove default list styling */
+    margin-left: 0;            /* Adjust margin to suit your design */
+    padding-left: 20px;        /* Indentation of the list */
+  }
+
+  ol li {
+    margin-bottom: 5px;  /* Space between items */
+    padding-left: 10px;  /* Inner padding for alignment */
+    text-indent: -10px;  /* Adjust text position */
+  }
+
+  ol li:before {
+    counter-increment: ol;            /* Increment the counter */
+    content: counter(ol) ". ";        /* Add dot after the number */
+    font-weight: bold;                       /* Bold the numbers */
+    padding-right: 10px;                     /* Space between number and text */
+  }
+
 }

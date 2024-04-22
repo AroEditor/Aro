@@ -10,6 +10,7 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
+import MathInline from "~/lib/editor/inline-equations";
 import Commands from "~/lib/editor/suggestions/commands";
 import getSuggestionItems from "~/lib/editor/suggestions/items";
 import renderItems from "~/lib/editor/suggestions/renderItems";
@@ -40,10 +41,11 @@ export default function Editor() {
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
+      MathInline,
     ],
     editorProps: {
       attributes: {
-        class: "h-full p-4 !font-serif mx-auto focus:outline-none !max-w-full",
+        class: "h-full p-8 !font-serif mx-auto focus:outline-none !max-w-full",
       },
     },
     content: ``,
