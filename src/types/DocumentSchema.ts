@@ -4,4 +4,5 @@ export default interface DocumentSchema {
   title: string | null;
   content: object | null;
   author_id: string;
+  last_edited: unknown;
 }

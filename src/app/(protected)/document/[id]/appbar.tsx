@@ -1,8 +1,9 @@
 import Link from "next/link";
+import TitleEditor from "~/app/(protected)/document/[id]/title-editor";
 import { Logo } from "~/components/logo";
 import { Button } from "~/components/ui/button";
 
-export default function Appbar() {
+export default async function Appbar({ title }: { title: string }) {
   return (
     <div className={"w-full border-b"}>
       <div className={"flex h-20 w-full items-center justify-between px-6"}>
@@ -14,7 +15,7 @@ export default function Appbar() {
             All documents
           </Link>
           <p className={"text-primary/60"}>/</p>
-          <p className={"font-bold"}>My Document</p>
+          <TitleEditor title={title} />
         </div>
         <div className={"flex gap-2"}>
           <Button variant={"outline"} className={"bg-transparent shadow-none"}>

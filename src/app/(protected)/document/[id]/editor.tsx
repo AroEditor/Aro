@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { Highlight } from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
+import { Placeholder } from "@tiptap/extension-placeholder";
 import { Table } from "@tiptap/extension-table";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { TableHeader } from "@tiptap/extension-table-header";
@@ -10,7 +13,9 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
+import { useDebounce } from "use-debounce";
 import { Skeleton } from "~/components/ui/skeleton";
+import saveDocContent from "~/lib/actions/saveDocContent";
 import MathInline from "~/lib/editor/inline-equations";
 import Commands from "~/lib/editor/suggestions/commands";
 import getSuggestionItems from "~/lib/editor/suggestions/items";
@@ -18,7 +23,7 @@ import renderItems from "~/lib/editor/suggestions/renderItems";
 
 import "./editor.scss";
 
-export default function Editor() {
+export default function Editor({ id, content }: { id: string; content: any }) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -43,6 +48,10 @@ export default function Editor() {
         types: ["heading", "paragraph"],
       }),
       MathInline,
+      Placeholder.configure({
+        // Use a placeholder:
+        placeholder: 'Type "/" to open command menu...',
+      }),
     ],
     editorProps: {
       attributes: {
@@ -50,8 +59,15 @@ export default function Editor() {
           "h-full p-16 xl:px-32 !font-serif mx-auto focus:outline-none !max-w-full bg-white 2xl:border-x border-dashed",
       },
     },
-    content: ``,
+    content,
   });
+
+  const _content = editor?.getJSON();
+  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 500);
+
+  useEffect(() => {
+    if (editor) saveDocContent({ id, content: structuredClone(_content!) });
+  }, [debouncedEditor]);
 
   if (!editor) {
     return (
@@ -68,8 +84,6 @@ export default function Editor() {
       </div>
     );
   }
-
-  console.log(editor?.getJSON());
 
   return <EditorContent editor={editor} className={"h-full"} />;
 }

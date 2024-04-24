@@ -16,6 +16,17 @@ export default async function signUp({ email, password }: { email: string; passw
       emailRedirectTo: `${origin}/auth/callback`,
     },
   })) as AuthResponse;
+  console.log(res);
+
+  if (res.data) {
+    await supabase.from("profiles").insert([
+      {
+        id: res.data.user?.id,
+        name: email,
+        email,
+      },
+    ]);
+  }
 
   return { success: !res.error, data: res.data, error: res.error?.message };
 }

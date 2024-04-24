@@ -1,9 +1,9 @@
 "use server";
 
 import Link from "next/link";
-import signUp from "~/app/auth/signup/action";
 import SignupForm from "~/app/auth/signup/form";
 import { Logo } from "~/components/logo";
+import signUp from "~/lib/actions/signUp";
 
 export default async function SignUp() {
   return (

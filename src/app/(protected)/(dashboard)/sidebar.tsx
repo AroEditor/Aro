@@ -1,7 +1,7 @@
-import { UserCircleIcon } from "@heroicons/react/20/solid";
 import { ArchiveBoxIcon, HomeIcon, TrashIcon, UserGroupIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { Logo } from "~/components/logo";
+import { UserMenu } from "~/components/user-menu";
 import { cn } from "~/lib/utils";
 
 const links = [
@@ -34,12 +34,7 @@ export default function Sidebar() {
           </Link>
         ))}
       </div>
-      <div className={"flex w-full items-center pb-4"}>
-        <div className={"flex h-14 w-full items-center gap-2 overflow-hidden rounded-md bg-white px-2 shadow"}>
-          <UserCircleIcon className={"w-10 shrink-0 text-primary"} />
-          <p className={"flex-1 truncate"}>colegawin@gmail.com</p>
-        </div>
-      </div>
+      <UserMenu />
     </div>
   );
 }

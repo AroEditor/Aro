@@ -3,6 +3,7 @@ import { DocumentTextIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { buttonVariants } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
+import DocumentSchema from "~/types/DocumentSchema";
 
 const projects = [
   { name: "Document name", edited: "00:00 AM - Apr 8, 2024" },
@@ -12,18 +13,18 @@ const projects = [
   { name: "Document name", edited: "00:00 AM - Apr 8, 2024" },
 ];
 
-export default function ProjectGrid() {
+export default function ProjectGrid({ documents }: { documents: DocumentSchema[] }) {
   return (
     <div>
       <h2 className={"pl-7 pt-7 text-2xl font-semibold text-black"}>All Projects</h2>
 
       <div className={"grid grid-cols-3 items-start justify-center gap-6 p-6"}>
-        <button className={cn(buttonVariants({ variant: "outline" }), "flex h-64 w-full bg-white")}>
+        <Link href={"/document"} className={cn(buttonVariants({ variant: "outline" }), "flex h-64 w-full bg-white")}>
           <PlusCircleIcon className={"w-16 text-muted-foreground"} />
-        </button>
-        {projects.map((project, index) => (
+        </Link>
+        {documents.map((document, index) => (
           <Link
-            href={"/document"}
+            href={"/document/" + document.id}
             key={index}
             className={cn(
               buttonVariants({ variant: "outline" }),
@@ -34,8 +35,8 @@ export default function ProjectGrid() {
               <DocumentTextIcon className={"w-16 text-primary"} />
             </div>
             <div className={"w-full p-2 text-left text-black"}>
-              <div className={"my-2 text-lg font-bold text-black"}>{project.name}</div>
-              <div className={"text-sm text-black"}>Edited {project.edited}</div>
+              <div className={"my-2 text-lg font-bold text-black"}>{document.title || "My Document"}</div>
+              <div className={"truncate text-sm text-black"}>Edited {String(document.created_at)}</div>
             </div>
           </Link>
         ))}
