@@ -6,6 +6,8 @@ import ProfileSchema from "~/types/ProfileSchema";
 import Appbar from "./appbar";
 import Main from "./main";
 
+export const revalidate = 0;
+
 export default async function EditorPage({ params }: { params: { id: string } }) {
   const supabase = createClient();
 

@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthResponse } from "@supabase/auth-js/src/lib/types";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useAsyncFn } from "react-use";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form";
@@ -35,24 +36,27 @@ export default function LoginForm({
   const { toast } = useToast();
   const router = useRouter();
 
-  async function handleSubmit(data: z.infer<typeof formSchema>) {
-    const res = await onSubmit(data);
+  const [handleSubmitState, handleSubmitFn] = useAsyncFn(
+    async (data: z.infer<typeof formSchema>) => {
+      const res = await onSubmit(data);
 
-    if (res.success) {
-      router.push("/");
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: res.error,
-      });
-    }
-  }
+      if (res.success) {
+        router.push("/");
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: res.error,
+        });
+      }
+    },
+    [onSubmit, router, toast]
+  );
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(handleSubmitFn)}
         className="flex w-full flex-col justify-center gap-4 text-foreground animate-in"
       >
         <FormField
@@ -81,7 +85,7 @@ export default function LoginForm({
             </FormItem>
           )}
         />
-        <Button type={"submit"} className={"mt-2"}>
+        <Button type={"submit"} className={"mt-2"} disabled={handleSubmitState.loading}>
           Sign In
         </Button>
       </form>

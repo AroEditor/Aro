@@ -99,7 +99,7 @@ export default function Editor({ id, content, profile }: { id: string; content: 
     editorProps: {
       attributes: {
         class:
-          "h-full p-16 xl:px-32 !font-serif mx-auto focus:outline-none !max-w-full bg-white 2xl:border-x border-dashed",
+          "h-full p-16 lg:px-32 xl:px-56 !font-serif mx-auto focus:outline-none !max-w-full bg-white 2xl:border-x border-dashed",
       },
     },
   });
@@ -136,7 +136,7 @@ export default function Editor({ id, content, profile }: { id: string; content: 
     return (
       <div
         className={
-          "mx-auto h-full !max-w-full space-y-2 border-dashed bg-white p-16 !font-serif focus:outline-none xl:px-32 2xl:border-x"
+          "mx-auto h-full !max-w-full space-y-2 border-dashed bg-white p-16 !font-serif focus:outline-none lg:px-32 xl:px-56 2xl:border-x"
         }
       >
         <Skeleton className="h-[125px] w-full rounded-xl" />

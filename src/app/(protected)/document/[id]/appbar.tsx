@@ -9,9 +9,9 @@ export default async function Appbar({ title }: { title: string }) {
   return (
     <div className={"w-full border-b"}>
       <div className={"flex h-20 w-full items-center justify-between px-6"}>
-        <div>
+        <Link href={"/"}>
           <Logo className={"w-24 text-primary"} />
-        </div>
+        </Link>
         <div className={"absolute left-1/2 flex -translate-x-1/2 gap-2 text-xl"}>
           <Link href={"/"} className={"text-primary/60 hover:underline"}>
             All documents
