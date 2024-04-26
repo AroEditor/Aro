@@ -27,14 +27,16 @@ export default function ExportModal() {
         <TooltipProvider delayDuration={200}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <button
-                className={cn(buttonVariants(), "w-full bg-gray-700 text-primary-foreground hover:bg-gray-800")}
-                disabled
-              >
-                Download .zip file
-              </button>
+              <div>
+                <button
+                  className={cn(buttonVariants(), "w-full bg-gray-700 text-primary-foreground hover:bg-gray-800")}
+                  disabled
+                >
+                  Download .zip file
+                </button>
+              </div>
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent side={"bottom"} alignOffset={0} className={"-mt-4"}>
               <p>Coming soon!</p>
             </TooltipContent>
           </Tooltip>

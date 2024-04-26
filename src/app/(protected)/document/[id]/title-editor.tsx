@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
@@ -28,6 +28,9 @@ export default function TitleEditor({ title }: { title: string }) {
   });
 
   const editedTitle = form.watch("title");
+  useEffect(() => {
+    document.title = `${editedTitle} | Aro Editor`;
+  }, [editedTitle]);
 
   const [isEditorOpen, setIsEditorOpen] = useState(false);
 
@@ -39,39 +42,41 @@ export default function TitleEditor({ title }: { title: string }) {
   }
 
   return (
-    <Popover
-      open={isEditorOpen}
-      onOpenChange={open => {
-        if (open) setIsEditorOpen(true);
-        else {
-          form.setValue("title", prevTitle);
-          setIsEditorOpen(false);
-        }
-      }}
-    >
-      <PopoverTrigger asChild>
-        <p onClick={() => setIsEditorOpen(true)} className={"font-bold"}>
-          {editedTitle}
-        </p>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-0">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input placeholder="Title" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-      </PopoverContent>
-    </Popover>
+    <>
+      <Popover
+        open={isEditorOpen}
+        onOpenChange={open => {
+          if (open) setIsEditorOpen(true);
+          else {
+            form.setValue("title", prevTitle);
+            setIsEditorOpen(false);
+          }
+        }}
+      >
+        <PopoverTrigger asChild>
+          <p onClick={() => setIsEditorOpen(true)} className={"font-bold"}>
+            {editedTitle}
+          </p>
+        </PopoverTrigger>
+        <PopoverContent className="w-80 p-0">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Title" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 }

@@ -64,6 +64,7 @@ export default function ShareModal() {
             {emails?.map((email, i) => {
               return (
                 <div
+                  key={i}
                   className={cn("flex items-center justify-stretch gap-2 py-2", i !== emails.length - 1 && "border-b")}
                 >
                   <p className={"flex-1"}>{email}</p>
