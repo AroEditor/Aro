@@ -2,11 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthResponse } from "@supabase/auth-js/src/lib/types";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { useToast } from "~/components/ui/use-toast";
 
 const formSchema = z
   .object({
@@ -39,10 +41,21 @@ export default function SignupForm({
     },
   });
 
+  const { toast } = useToast();
+  const router = useRouter();
+
   async function handleSubmit(data: z.infer<typeof formSchema>) {
     const res = await onSubmit(data);
 
-    console.log({ res });
+    if (res.success) {
+      router.push("/");
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: res.error,
+      });
+    }
   }
 
   return (
