@@ -51,6 +51,7 @@
     "geist": "^1.2.1",
     "mathlive": "^0.98.6",
     "next": "latest",
+    "next-nprogress-bar": "^2.3.11",
     "next-themes": "^0.3.0",
     "postcss": "8.4.33",
     "react": "18.2.0",

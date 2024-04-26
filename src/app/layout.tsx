@@ -5,6 +5,7 @@ import { Toaster } from "~/components/ui/toaster";
 import "~/lib/fonts/CMUSerif/stylesheet.css";
 
 import "./globals.css";
+import ProgressBar from "./progress-bar";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -23,9 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${manrope.variable} font-sans`}>
       <body className="bg-background text-foreground">
-        <main className="flex min-h-screen flex-col items-center">{children}</main>
-        <Toaster />
-        <Sonner />
+        <ProgressBar>
+          <main className="flex min-h-screen flex-col items-center">{children}</main>
+          <Toaster />
+          <Sonner />
+        </ProgressBar>
       </body>
     </html>
   );
