@@ -17,7 +17,7 @@ declare global {
 const MathEditorComponent = (props: { node: { attrs: { data: string } }; updateAttributes: (data: any) => void }) => {
   const [value, setValue] = useState<string>(props.node.attrs.data);
 
-  const [debouncedEditor] = useDebounce(props.node.attrs.data, 500);
+  const [debouncedEditor] = useDebounce(props.node.attrs.data, 2000);
 
   useEffect(() => {
     setValue(props.node.attrs.data);
