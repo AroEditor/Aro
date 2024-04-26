@@ -1,5 +1,4 @@
 export default function createOverleafUrl(latexContent: string) {
-  console.log(unescape(encodeURIComponent(latexContent)));
   const base64Content = btoa(unescape(encodeURIComponent(latexContent)));
   const dataUri = `data:application/x-tex;base64,${base64Content}`;
 

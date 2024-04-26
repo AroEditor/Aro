@@ -44,7 +44,7 @@ export default function TableOptions() {
                 variant={"secondary"}
                 size={"sm"}
                 className={"!rounded-r-none border border-gray-400 bg-gray-200 px-1 shadow-none"}
-                onClick={() => editor?.chain().focus().deleteRow().run()}
+                onClick={() => editor?.chain().focus().deleteRow().fixTables().run()}
               >
                 <MinusIcon className={"w-4"} />
               </Button>
@@ -52,7 +52,7 @@ export default function TableOptions() {
                 variant={"secondary"}
                 size={"sm"}
                 className={"!rounded-l-none border border-l-0 border-gray-400 bg-gray-200 px-1 shadow-none"}
-                onClick={() => editor?.chain().focus().addRowAfter().run()}
+                onClick={() => editor?.chain().focus().addRowAfter().fixTables().run()}
               >
                 <PlusIcon className={"w-4"} />
               </Button>
@@ -68,7 +68,10 @@ export default function TableOptions() {
                 variant={"secondary"}
                 size={"sm"}
                 className={"!rounded-r-none border border-gray-400 bg-gray-200 px-1 shadow-none"}
-                onClick={() => editor?.chain().focus().deleteColumn().run()}
+                onClick={() => {
+                  editor?.chain().focus().deleteColumn().run();
+                  editor?.chain().focus().fixTables().run();
+                }}
               >
                 <MinusIcon className={"w-4"} />
               </Button>
@@ -76,7 +79,7 @@ export default function TableOptions() {
                 variant={"secondary"}
                 size={"sm"}
                 className={"!rounded-l-none border border-l-0 border-gray-400 bg-gray-200 px-1 shadow-none"}
-                onClick={() => editor?.chain().focus().addColumnAfter().run()}
+                onClick={() => editor?.chain().focus().addColumnAfter().fixTables().run()}
               >
                 <PlusIcon className={"w-4"} />
               </Button>
