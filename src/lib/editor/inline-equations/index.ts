@@ -7,7 +7,7 @@ import { inputRules } from "prosemirror-inputrules";
 
 export default Node.create({
   name: "math_inline",
-  group: "inline math",
+  group: "inline text",
   content: "text*", // important!
   inline: true, // important!
   atom: true, // important!

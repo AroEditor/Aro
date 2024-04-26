@@ -5,4 +5,5 @@ export default interface DocumentSchema {
   content: object | null;
   author_id: string;
   last_edited: unknown;
+  shared_emails: string[];
 }

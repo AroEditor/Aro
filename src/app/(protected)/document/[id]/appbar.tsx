@@ -1,7 +1,9 @@
 import Link from "next/link";
+import ExportButton from "~/app/(protected)/document/[id]/export-button";
+import ShareButton from "~/app/(protected)/document/[id]/share-button";
 import TitleEditor from "~/app/(protected)/document/[id]/title-editor";
+import UserDisplay from "~/app/(protected)/document/[id]/user-display";
 import { Logo } from "~/components/logo";
-import { Button } from "~/components/ui/button";
 
 export default async function Appbar({ title }: { title: string }) {
   return (
@@ -18,10 +20,9 @@ export default async function Appbar({ title }: { title: string }) {
           <TitleEditor title={title} />
         </div>
         <div className={"flex gap-2"}>
-          <Button variant={"outline"} className={"bg-transparent shadow-none"}>
-            Export
-          </Button>
-          <Button className={"shadow-none"}>Share</Button>
+          <UserDisplay />
+          <ExportButton />
+          <ShareButton />
         </div>
       </div>
     </div>

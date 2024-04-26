@@ -11,7 +11,6 @@ const Commands = Extension.create({
         startOfLine: false,
         // @ts-ignore
         command: ({ editor, range, props }) => {
-          console.log(props);
           props.command({ editor, range, props });
         },
       },

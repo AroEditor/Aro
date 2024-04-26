@@ -91,7 +91,7 @@ export default forwardRef(({ items: categories, command }: CommandListProps, ref
 
   return (
     <div
-      className="flex h-full w-full flex-col overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-md"
+      className="flex max-h-96 w-full flex-col overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-md"
       tabIndex={0}
     >
       <div className={"w-56 space-y-1 overflow-y-auto overflow-x-hidden px-1 py-2"}>

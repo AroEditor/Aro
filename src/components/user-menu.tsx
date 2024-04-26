@@ -28,15 +28,15 @@ export function UserMenu() {
   }, []);
 
   return (
-    <div className={"flex w-full items-center pb-6"}>
+    <div className={"flex w-full items-center"}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="secondary" className={"h-14 w-full gap-4 bg-white"}>
-            <UserCircleIcon className={"w-10 shrink-0 text-primary"} />
+          <Button variant="secondary" className={"w-full gap-2 border bg-white"}>
+            <UserCircleIcon className={"w-8 shrink-0 text-primary"} />
             <p className={"flex-1 truncate text-left"}>{name || "..."}</p>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mb-1 w-56" align={"start"}>
+        <DropdownMenuContent className="mb-1 w-56" align={"end"}>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>

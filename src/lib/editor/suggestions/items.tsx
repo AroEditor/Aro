@@ -93,18 +93,23 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Elements",
       items: [
         {
-          title: "Insert image",
-          id: "image",
-          command: ({ editor, range }: { editor: Editor; range: Range }) => {
-            console.log("call some function from parent");
-            editor.chain().focus().deleteRange(range).setNode("paragraph").run();
-          },
-        },
-        {
           title: "Insert table",
           id: "table",
           command: ({ editor, range }: { editor: Editor; range: Range }) => {
             editor.chain().focus().deleteRange(range).insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+          },
+        },
+        {
+          title: "Insert equation",
+          id: "equation",
+          command: ({ editor, range }: { editor: Editor; range: Range }) => {
+            editor
+              .chain()
+              .deleteRange(range)
+              .insertContent({
+                type: "math-editor",
+              })
+              .run();
           },
         },
       ],

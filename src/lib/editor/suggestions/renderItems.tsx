@@ -21,7 +21,7 @@ const renderItems = () => {
         showOnCreate: true,
         interactive: true,
         trigger: "manual",
-        placement: "bottom-start",
+        placement: "auto-start",
       });
     },
     onUpdate(props: any) {

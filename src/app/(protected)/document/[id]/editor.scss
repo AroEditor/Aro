@@ -16,7 +16,7 @@
     }
 
     .selectedCell {
-      background: rgba(200, 200, 255, 0.4);
+      background: rgba(51, 51, 122, 0.1);
     }
   }
 
@@ -32,7 +32,7 @@
     margin: 0;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h2, h3, h4, h5, h6 {
     font-weight: bold;
   }
 
@@ -49,13 +49,26 @@
     counter-increment: h4;
   }
   h2::before {
-    content: counter(h2)'. ';
+    content: counter(h2)' ';
   }
   h3::before {
-    content: counter(h2)'.'counter(h3)'. ';
+    content: counter(h2)'.'counter(h3)' ';
   }
   h4::before {
-    content: counter(h2)'.'counter(h3)'. 'counter(h4)'. ';
+    content: counter(h2)'.'counter(h3)'. 'counter(h4)' ';
+  }
+
+  ul {
+    display: block;
+    list-style-type: disc;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+
+    li {
+      display: list-item;
+      text-align: -webkit-match-parent;
+      unicode-bidi: isolate;
+    }
   }
 
   ol {
@@ -63,19 +76,63 @@
     list-style-type: none;     /* Remove default list styling */
     margin-left: 0;            /* Adjust margin to suit your design */
     padding-left: 20px;        /* Indentation of the list */
+
+    li {
+      padding-left: 10px;  /* Inner padding for alignment */
+      text-indent: -10px;  /* Adjust text position */
+
+      &:before {
+        counter-increment: ol;            /* Increment the counter */
+        content: counter(ol) ". ";        /* Add dot after the number */
+        font-weight: bold;                       /* Bold the numbers */
+        padding-right: 10px;                     /* Space between number and text */
+        float: left;
+      }
+    }
   }
 
-  ol li {
-    margin-bottom: 5px;  /* Space between items */
-    padding-left: 10px;  /* Inner padding for alignment */
-    text-indent: -10px;  /* Adjust text position */
+  math-field::part(content) {
+    justify-content: center;
   }
 
-  ol li:before {
-    counter-increment: ol;            /* Increment the counter */
-    content: counter(ol) ". ";        /* Add dot after the number */
-    font-weight: bold;                       /* Bold the numbers */
-    padding-right: 10px;                     /* Space between number and text */
+  math-field {
+    background: transparent;
   }
 
+  .ProseMirror-selectednode, ::selection {
+    background: rgba(51, 51, 122, 0.1);
+  }
+}
+
+
+/* Give a remote user a caret */
+.collaboration-cursor__caret {
+  border-left: 1px solid;
+  border-right: 1px solid;
+  margin-left: -1px;
+  margin-right: -1px;
+  pointer-events: none;
+  position: relative;
+  word-break: normal;
+  height: 1em;
+  display: inline-block;
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* Render the username above the caret */
+.collaboration-cursor__label {
+  border-radius: 3px 3px 3px 0;
+  color: white;
+  font-family: var(--font-manrope);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  left: -1px;
+  line-height: normal;
+  padding: 0.1rem 0.3rem;
+  position: absolute;
+  top: -1.4em;
+  user-select: none;
+  white-space: nowrap;
+  background-color: hsl(var(--primary)) !important;
 }

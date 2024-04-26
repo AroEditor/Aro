@@ -7,7 +7,7 @@ export default async function saveDocContent({ id, content }: { id: string; cont
 
   const supabase = createClient();
 
-  const res = await supabase.from("documents").update({ content }).eq("id", id);
+  const res = await supabase.from("documents").update({ content, last_edited: new Date() }).eq("id", id);
 
   return { success: !res.error, data: res.data, error: res.error?.message };
 }
