@@ -12,7 +12,7 @@ export default async function NotFound() {
             <div className="mx-auto max-w-screen-sm space-y-8 text-center">
               <h1 className="text-primary-600 text-7xl font-extrabold tracking-tight">404</h1>
               <p className="text-3xl tracking-tight text-gray-900">Whoops! This page doesn’t exist.</p>
-              <Link href={"/"} className={buttonVariants()}>
+              <Link href={"/dashboard"} className={buttonVariants()}>
                 Back to Home
               </Link>
             </div>

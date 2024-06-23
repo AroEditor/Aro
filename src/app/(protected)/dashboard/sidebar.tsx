@@ -10,9 +10,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "~/comp
 import { cn } from "~/lib/utils";
 
 const links = [
-  { title: "Home", icon: HomeIcon, href: "/" },
-  { title: "Your documents", icon: UserIcon, href: "/documents" },
-  { title: "Shared with you", icon: UserGroupIcon, href: "/shared" },
+  { title: "Home", icon: HomeIcon, href: "/dashboard" },
+  { title: "Your documents", icon: UserIcon, href: "/dashboard/documents" },
+  { title: "Shared with you", icon: UserGroupIcon, href: "/dashboard/shared" },
   { title: "Archive", icon: ArchiveBoxIcon },
   { title: "Trash", icon: TrashIcon },
 ];

@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { TiptapCollabProvider } from "@hocuspocus/provider";
 import { Collaboration } from "@tiptap/extension-collaboration";
 import { CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
 import { Highlight } from "@tiptap/extension-highlight";
@@ -16,17 +15,17 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
-import { useDebounce } from "use-debounce";
+import dynamic from "next/dynamic";
 import * as Y from "yjs";
 import { create } from "zustand";
-import { Skeleton } from "~/components/ui/skeleton";
-import saveDocContent from "~/lib/actions/saveDocContent";
 import MathInline from "~/lib/editor/inline-equations";
 import CustomComponentExtension from "~/lib/editor/math-editor";
 import Commands from "~/lib/editor/suggestions/commands";
 import getSuggestionItems from "~/lib/editor/suggestions/items";
 import renderItems from "~/lib/editor/suggestions/renderItems";
 import { TrailingNode } from "~/lib/editor/trailing-node";
+import SupabaseProvider from "~/lib/supabase-collaboration";
+import { createClient } from "~/lib/supabase/client";
 import ProfileSchema from "~/types/ProfileSchema";
 
 import "./editor.scss";
@@ -43,30 +42,31 @@ export const useEditorStore = create<EditorState>(set => ({
   setEditor: editor => set({ editor }),
 }));
 
-export default function Editor({ id, content, profile }: { id: string; content: any; profile: ProfileSchema }) {
+function Editor({ id, content, profile }: { id: string; content: any; profile: ProfileSchema }) {
   const doc = useMemo(() => new Y.Doc({ guid: id }), []);
 
-  const provider = useMemo(() => {
-    return new TiptapCollabProvider({
-      name: "documents." + id,
-      appId: "ok0qpy94",
-      document: doc,
-      token: process.env.NEXT_PUBLIC_TIPTAP_KEY,
-    });
-  }, []);
+  const supabase = useMemo(() => createClient(), []);
 
+  const provider = new SupabaseProvider(doc, supabase, {
+    channel: id,
+    id: id,
+    tableName: "documents",
+    columnName: "content",
+    resyncInterval: false,
+  });
+
+  if (doc.guid !== provider.config.id) return null;
+
+  return <InnerEditor doc={doc} provider={provider} profile={profile} />;
+}
+
+function InnerEditor({ doc, provider, profile }: { doc: Y.Doc; provider: SupabaseProvider; profile: ProfileSchema }) {
   const [status, setStatus] = useState(false);
 
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
         history: false,
-      }),
-      Collaboration.configure({
-        document: doc,
-      }),
-      CollaborationCursor.configure({
-        provider,
       }),
       Highlight,
       Typography,
@@ -95,6 +95,17 @@ export default function Editor({ id, content, profile }: { id: string; content: 
         placeholder: 'Type "/" to open command menu...',
       }),
       TrailingNode,
+
+      Collaboration.configure({
+        document: doc, // Configure Y.Doc for collaboration
+      }),
+      CollaborationCursor.configure({
+        provider,
+        user: {
+          name: profile.email,
+          color: "#f783ac",
+        },
+      }),
     ],
     editorProps: {
       attributes: {
@@ -104,49 +115,38 @@ export default function Editor({ id, content, profile }: { id: string; content: 
     },
   });
 
-  useEffect(() => {
-    const name = profile.name;
+  console.log(provider.awareness.states, provider.version);
 
-    editor?.chain().focus().updateUser({ name, id: profile.id, clientId: profile.id }).run();
-  }, [editor]);
+  // const { setEditor } = useEditorStore();
+  //
+  // useEffect(() => {
+  //   if (!editor) return;
+  //   (editor as any).refresh = Symbol();
+  //   setEditor(editor);
+  // }, [editor?.state]);
+  //
+  // const _content = editor?.getJSON();
+  // const [debouncedEditor] = useDebounce(editor?.state.doc.content, 500);
+  //
+  // useEffect(() => {
+  //   if (editor) saveDocContent({ id, content: structuredClone(_content!) });
+  // }, [debouncedEditor]);
 
-  useEffect(() => {
-    // Update status changes
-    provider.on("status", (event: { status: any }) => {
-      if (event.status === "connected") setStatus(true);
-    });
-  }, []);
-
-  const { setEditor } = useEditorStore();
-
-  useEffect(() => {
-    if (!editor) return;
-    (editor as any).refresh = Symbol();
-    setEditor(editor);
-  }, [editor?.state]);
-
-  const _content = editor?.getJSON();
-  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 500);
-
-  useEffect(() => {
-    if (editor) saveDocContent({ id, content: structuredClone(_content!) });
-  }, [debouncedEditor]);
-
-  if (!editor || !status) {
-    return (
-      <div
-        className={
-          "mx-auto h-full !max-w-full space-y-2 border-dashed bg-white p-16 !font-serif focus:outline-none lg:px-32 xl:px-56 2xl:border-x"
-        }
-      >
-        <Skeleton className="h-[125px] w-full rounded-xl" />
-        <div className="space-y-2">
-          <Skeleton className="h-8 w-full" />
-          <Skeleton className="h-8 w-[75%]" />
-        </div>
-      </div>
-    );
-  }
+  // if (!editor || !status) {
+  //   return (
+  //     <div
+  //       className={
+  //         "mx-auto h-full !max-w-full space-y-2 border-dashed bg-white p-16 !font-serif focus:outline-none lg:px-32 xl:px-56 2xl:border-x"
+  //       }
+  //     >
+  //       <Skeleton className="h-[125px] w-full rounded-xl" />
+  //       <div className="space-y-2">
+  //         <Skeleton className="h-8 w-full" />
+  //         <Skeleton className="h-8 w-[75%]" />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <article>
@@ -154,3 +154,7 @@ export default function Editor({ id, content, profile }: { id: string; content: 
     </article>
   );
 }
+
+export default dynamic(() => Promise.resolve(Editor), {
+  ssr: false,
+});

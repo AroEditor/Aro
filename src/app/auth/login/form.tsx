@@ -41,7 +41,7 @@ export default function LoginForm({
       const res = await onSubmit(data);
 
       if (res.success) {
-        router.push("/");
+        router.push("/dashboard");
       } else {
         toast({
           variant: "destructive",

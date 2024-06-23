@@ -48,7 +48,9 @@
     "clsx": "^2.1.0",
     "constate": "^3.3.2",
     "dayjs": "^1.11.10",
+    "debounce": "^2.1.0",
     "geist": "^1.2.1",
+    "js-base64": "^3.7.7",
     "mathlive": "^0.98.6",
     "next": "latest",
     "next-nprogress-bar": "^2.3.11",
@@ -66,6 +68,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.3.3",
     "use-debounce": "^10.0.0",
+    "y-protocols": "^1.0.6",
     "yjs": "^13.6.14",
     "zod": "^3.22.5",
     "zustand": "^4.5.2"

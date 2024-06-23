@@ -11,7 +11,7 @@ export default async function ProtectedPage({ children }: { children: React.Reac
   } = await supabase.auth.getUser();
 
   if (user) {
-    return redirect("/");
+    return redirect("/dashboard");
   }
 
   return <>{children}</>;
