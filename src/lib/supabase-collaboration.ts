@@ -159,7 +159,7 @@ export default class SupabaseProvider extends EventEmitter {
 
     this.logger = debug("y-" + doc.clientID);
     // turn on debug logging to the console
-    this.logger.enabled = true;
+    this.logger.enabled = false;
 
     this.logger("constructor initializing");
     this.logger("connecting to Supabase Realtime", doc.guid);
