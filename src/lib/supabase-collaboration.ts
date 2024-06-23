@@ -149,7 +149,6 @@ export default class SupabaseProvider extends EventEmitter {
     super();
 
     this.awareness = this.config.awareness || new awarenessProtocol.Awareness(doc);
-    console.log("new awareness");
 
     this.config = config || {};
     this.id = doc.clientID;

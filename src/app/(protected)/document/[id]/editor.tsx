@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Collaboration } from "@tiptap/extension-collaboration";
 import { CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
@@ -18,6 +18,7 @@ import { StarterKit } from "@tiptap/starter-kit";
 import dynamic from "next/dynamic";
 import * as Y from "yjs";
 import { create } from "zustand";
+import { Skeleton } from "~/components/ui/skeleton";
 import MathInline from "~/lib/editor/inline-equations";
 import CustomComponentExtension from "~/lib/editor/math-editor";
 import Commands from "~/lib/editor/suggestions/commands";
@@ -57,10 +58,20 @@ function Editor({ id, content, profile }: { id: string; content: any; profile: P
 
   if (doc.guid !== provider.config.id) return null;
 
-  return <InnerEditor doc={doc} provider={provider} profile={profile} />;
+  return <InnerEditor id={id} doc={doc} provider={provider} profile={profile} />;
 }
 
-function InnerEditor({ doc, provider, profile }: { doc: Y.Doc; provider: SupabaseProvider; profile: ProfileSchema }) {
+function InnerEditor({
+  id,
+  doc,
+  provider,
+  profile,
+}: {
+  id: string;
+  doc: Y.Doc;
+  provider: SupabaseProvider;
+  profile: ProfileSchema;
+}) {
   const [status, setStatus] = useState(false);
 
   const editor = useEditor({
@@ -115,38 +126,29 @@ function InnerEditor({ doc, provider, profile }: { doc: Y.Doc; provider: Supabas
     },
   });
 
-  console.log(provider.awareness.states, provider.version);
+  useEffect(() => {
+    const listener = ([{ status }]: { status: string }[]) => {
+      setStatus(status == "connected");
+    };
+    provider.on("status", listener);
+    return () => provider.off("status", listener) as unknown as void;
+  }, [provider]);
 
-  // const { setEditor } = useEditorStore();
-  //
-  // useEffect(() => {
-  //   if (!editor) return;
-  //   (editor as any).refresh = Symbol();
-  //   setEditor(editor);
-  // }, [editor?.state]);
-  //
-  // const _content = editor?.getJSON();
-  // const [debouncedEditor] = useDebounce(editor?.state.doc.content, 500);
-  //
-  // useEffect(() => {
-  //   if (editor) saveDocContent({ id, content: structuredClone(_content!) });
-  // }, [debouncedEditor]);
-
-  // if (!editor || !status) {
-  //   return (
-  //     <div
-  //       className={
-  //         "mx-auto h-full !max-w-full space-y-2 border-dashed bg-white p-16 !font-serif focus:outline-none lg:px-32 xl:px-56 2xl:border-x"
-  //       }
-  //     >
-  //       <Skeleton className="h-[125px] w-full rounded-xl" />
-  //       <div className="space-y-2">
-  //         <Skeleton className="h-8 w-full" />
-  //         <Skeleton className="h-8 w-[75%]" />
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (!editor || !status) {
+    return (
+      <div
+        className={
+          "mx-auto h-full !max-w-full space-y-2 border-dashed bg-white p-16 !font-serif focus:outline-none lg:px-32 xl:px-56 2xl:border-x"
+        }
+      >
+        <Skeleton className="h-[125px] w-full rounded-xl" />
+        <div className="space-y-2">
+          <Skeleton className="h-8 w-full" />
+          <Skeleton className="h-8 w-[75%]" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <article>
