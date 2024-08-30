@@ -269,7 +269,7 @@ export default class SupabaseProvider extends EventEmitter {
     this.logger("destroying");
 
     if (this.resyncInterval) {
-      clearInterval(this.resyncInterval);
+      clearInterval(this.resyncInterval as any);
     }
 
     if (typeof window !== "undefined") {

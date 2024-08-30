@@ -53,6 +53,7 @@
     "js-base64": "^3.7.7",
     "mathlive": "^0.98.6",
     "next": "latest",
+    "next-auth": "^4.24.7",
     "next-nprogress-bar": "^2.3.11",
     "next-themes": "^0.3.0",
     "postcss": "8.4.33",
