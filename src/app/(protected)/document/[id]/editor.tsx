@@ -134,6 +134,13 @@ function InnerEditor({
     return () => provider.off("status", listener) as unknown as void;
   }, [provider]);
 
+  const { setEditor } = useEditorStore();
+  useEffect(() => {
+    if (!editor) return;
+    (editor as any).refresh = Symbol();
+    setEditor(editor);
+  }, [editor?.state]);
+
   if (!editor || !status) {
     return (
       <div
