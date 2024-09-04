@@ -12,7 +12,7 @@ export default async function Dashboard() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data, error } = (await supabase
+  const { data } = (await supabase
     .from("documents")
     .select("*")
     .or(`author_id.eq.${user?.id},shared_emails.cs.{"${user?.email}"}`)
